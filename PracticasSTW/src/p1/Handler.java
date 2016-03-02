@@ -39,22 +39,23 @@ public class Handler {
 	public static void handlePetition(Socket cliente) {
 		byte[] buffer = new byte[1024];
 		int bytes;
+		String debugString = "";
 		try {
 			// Nos aseguramos de que el fin de línea se ajuste al estándar
 			System.setProperty("line.separator", "\r\n");
 			Scanner lee = new Scanner(cliente.getInputStream());
 			PrintWriter escribe = new PrintWriter(cliente.getOutputStream(), true);
-			showDebug("Recibido:\n");
+			debugString += "Recibido:\n";
 
 			// Comprobar que lo siguiente leído es el GET
 			String checkGET = lee.next();
-			showDebug(checkGET + " ");
+			debugString += checkGET + " ";
 			String response = "";
 
 			if (checkGET.equalsIgnoreCase("GET")) {
 				// Esto debería ser el fichero
 				String checkPath = lee.next();
-				showDebug(checkPath + "\n\nEnviado:\n");
+				debugString += checkPath + "\n\nEnviado:\n";
 
 				if (checkPath.startsWith("/stw") && !checkPath.contains("/..")) {
 					String fichero = "." + checkPath;
@@ -85,39 +86,45 @@ public class Handler {
 							response = makeResponse(UNKNOWN, (int) f.length());
 						}
 
-						// Enviamos la respuesta (cabecera)
-						showDebug(response + "\n");
+						// Enviamos la respuesta
+						debugString += response + "\n";
 						escribe.println(response);
-
+						String infoSent = "";
+						
 						// Enviamos el fichero
 						while ((bytes = fis.read(buffer)) != -1) {
 							// enviar fichero
 							cliente.getOutputStream().write(buffer, 0, bytes);
+							if(infoSent.length() < 120){
+								infoSent += new String(buffer).substring(0,bytes);
+							}
 						}
 
+						debugString += infoSent + "\n";
 						// Fin de la comunicación
 						escribe.println();
-						showDebug("\n");
+						debugString += "\n";
 					} else {
 						// Not found
 						response = makeResponse(NOTFOUND, 0);
-						showDebug(response + "\n");
+						debugString += response + "\n";
 						escribe.println(response);
 					}
 				} else {
 					// Not found
 					response = makeResponse(NOTFOUND, 0);
-					showDebug(response + "\n");
+					debugString += response + "\n";
 					escribe.println(response);
 				}
 			} else {
 				// Not implemented
 				response = makeResponse(NOGET, 0);
-				showDebug(response + "\n");
+				debugString += "\nEnviado:\n" +  response  + "\n";
 				escribe.println(response);
 			}
 			cliente.close();
 			lee.close();
+			showDebug(debugString);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (NoSuchElementException e) {
