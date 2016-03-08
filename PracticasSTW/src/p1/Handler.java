@@ -92,14 +92,14 @@ public class Handler {
 						String infoSent = "";
 						
 						// Enviamos el fichero
-						while ((bytes = fis.read(buffer)) != -1) {
+						while ((bytes = fis.read(buffer)) > 0) {
 							// enviar fichero
 							cliente.getOutputStream().write(buffer, 0, bytes);
 							if(infoSent.length() < 120){
 								infoSent += new String(buffer).substring(0,bytes);
 							}
 						}
-
+						
 						debugString += infoSent + "\n";
 						// Fin de la comunicación
 						escribe.println();
@@ -122,6 +122,7 @@ public class Handler {
 				debugString += "\nEnviado:\n" +  response  + "\n";
 				escribe.println(response);
 			}
+			escribe.close();
 			cliente.close();
 			lee.close();
 			showDebug(debugString);
@@ -180,8 +181,8 @@ public class Handler {
 			// Responder ok y mandar el fichero
 			String respCode = "200 OK";
 			String p1 = makeHTTPProtocolTag(respCode);
-			String p2 = makeContentLengthTag(length);
-			String p3 = makeContentTypeTag("unknown");
+			String p2 = makeContentTypeTag("unknown");
+			String p3 = makeContentLengthTag(length);
 			returned = p1 + "\n" + p2 + "\n" + p3;
 		}
 		return returned;
