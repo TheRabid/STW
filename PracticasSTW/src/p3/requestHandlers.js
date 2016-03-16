@@ -2,6 +2,7 @@
  * requestHandlers.js
  */
 var querystring = require("querystring");
+var url = require("url");
 var fs = require("fs");
 var formidable = require("formidable");
 
@@ -72,34 +73,79 @@ function show(response, request) {
 
 function setMemo(response, request){
 	console.log("Request handler 'setMemo' was called.")
-	var body= '<html>'+
-	'<head>'+
-	'<meta http-equiv="Content-Type" '+
-	'content="text/html; charset=UTF-8" />'+
-	'</head>'+
-	'<body>'+
-	'<h1>' +
-	'=-=-= Memo System =-=-=' +
-	'</h1>' +
-	'<h2>' +
-	'New memo' +
-	'</h2>' +
-	'<form action="/setMemo">' +
-	'Name of memo:<br>' +
-	'<input type="text" name="name" required><br>' +
-	'Description of memo:<br>' +
-	'<textarea name="description" rows="20" cols="30" required></textarea><br>' +
-	'Optional file:<br>'+
-	'<input type="file" name="file" multiple="multiple"><br><br>'+
-	'<input type="submit" value="Submit memo">' +
-	'</form>' +
-	'</body>'+
-	'</html>';
-	response.writeHead(200, {
-		"Content-Type" : "text/html"
-	});
-	response.write(body);
-	response.end();
+	var query = url.parse(request.url).query;
+	if (query !== null) {
+		var memoName = querystring.parse(query).name;
+		var memoDesc = querystring.parse(query).description;
+		var memoFile = querystring.parse(query).file;
+		console.log("About to insert a new memo with this data: '" + memoName
+									+ "', '" + memoDesc + "', '" + memoFile + "'");
+
+		// Call to bd insert
+		// If everything went ok then this
+
+		var body= '<html>'+
+		'<head>'+
+		'<meta http-equiv="Content-Type" '+
+		'content="text/html; charset=UTF-8" />'+
+		'</head>'+
+		'<body>'+
+		'<h1>' +
+		'=-=-= Memo System =-=-=' +
+		'</h1>' +
+		'<h2>' +
+		'New memo created' +
+		'</h2>' +
+		'<h3>' +
+		'Name:<br>' +
+		'</h3>' +
+		memoName +
+		'<br><h3>' +
+		'Description:<br>' +
+		'</h3>' +
+		memoDesc +
+		'<br><h3>' +
+		'File:<br>' +
+		'</h3>' +
+		memoFile +
+		'<br></body>'+
+		'</html>';
+		response.writeHead(200, {
+			"Content-Type" : "text/html"
+		});
+		response.write(body);
+		response.end();
+	}
+	else{
+		var body= '<html>'+
+		'<head>'+
+		'<meta http-equiv="Content-Type" '+
+		'content="text/html; charset=UTF-8" />'+
+		'</head>'+
+		'<body>'+
+		'<h1>' +
+		'=-=-= Memo System =-=-=' +
+		'</h1>' +
+		'<h2>' +
+		'New memo' +
+		'</h2>' +
+		'<form action="/setMemo">' +
+		'Name of memo:<br>' +
+		'<input type="text" name="name" required><br>' +
+		'Description of memo:<br>' +
+		'<textarea name="description" rows="20" cols="30" required></textarea><br>' +
+		'Optional file:<br>'+
+		'<input type="file" name="file" multiple="multiple"><br><br>'+
+		'<input type="submit" value="Submit memo">' +
+		'</form>' +
+		'</body>'+
+		'</html>';
+		response.writeHead(200, {
+			"Content-Type" : "text/html"
+		});
+		response.write(body);
+		response.end();
+  }
 }
 
 exports.start = start;
