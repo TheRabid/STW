@@ -1,5 +1,8 @@
 /**
  * Router.js
+ * Este fichero contiene el enrutamiento de las peticiones get que recibe
+ * el servidor. Con el pathname y las funciones de handle, es capaz de
+ * llamar al requestHandler apropiado según la peticion que recibe
  */
 function route(handle, pathname, response, request){
 	console.log("About to route a request for " + pathname);
