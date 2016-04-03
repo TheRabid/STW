@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8">
+<!DOCTYPE liga [
+  <!ELEMENT liga (jornada+)>
+  <!ELEMENT jornada (partido+,estadistica)>
+  <!ELEMENT partido (equipo,equipo)>
+  <!ELEMENT estadistica (jugados,ganados,empatados,perdidos,fecha)>
+  <!ELEMENT equipo EMPTY>
+  <!ATTLIST equipo nombre CDATA #REQUIRED>
+  <!ATTLIST equipo goles CDATA #REQUIRED>
+  <!ATTLIST equipo tipo (local|visitante) #REQUIRED>
+  <!ELEMENT jugados (#PCDATA)>
+  <!ELEMENT ganados (#PCDATA)>
+  <!ELEMENT empatados (#PCDATA)>
+  <!ELEMENT perdidos (#PCDATA)>
+  <!ELEMENT fecha (#PCDATA)>
+]>
+
+<liga>
+	<jornada>
+		<partido>
+			<equipo nombre="Nottingham Presa" goles="0" tipo="local"/>
+			<equipo nombre="Inter Mitente" goles="1" tipo="visitante"/>
+		</partido>
+
+		<partido>
+			<equipo nombre="Vodka Juniors" goles="3" tipo="local"/>
+			<equipo nombre="Sparta da Risa" goles="3" tipo="visitante"/>
+		</partido>
+		
+		<partido>
+			<equipo nombre="Water de Munich" goles="4" tipo="local"/>
+			<equipo nombre="Esteaua es del grifo" goles="2" tipo="visitante"/>
+		</partido>
+		
+		<estadistica>
+		</estadistica>
+	</jornada>
+</liga>
