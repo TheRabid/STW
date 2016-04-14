@@ -389,6 +389,7 @@ function getFile(response, request){
 				response.writeHead(200, {
 					"Content-Type" : "application/octet-stream",
 				});
+				console.log(blob);
 				response.end(blob);
 			} else{
 				start(response,request);

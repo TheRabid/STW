@@ -92,6 +92,7 @@ function getAllMemo(callback){
 					connection.release();
 					if(!err) {
 						 console.log("--Obtained all memos!");
+             console.log(rows);
 						 callback(null, rows);
 					} else{
 						console.log("--Failed to get all memos");
@@ -188,7 +189,9 @@ function blobMemo(idMemo, callback){
 					connection.release();
 					if(!err) {
             if(rows.length > 0){
+              console.log(rows);
               var blob = rows[0].MemoFile;
+              console.log(blob);
               var name = rows[0].MemoFileName;
               console.log("--Obtained the memo!");
               callback(null, blob, name);
