@@ -113,6 +113,7 @@ function getAllMemo(callback){
  */
 
 function getMemo(idMemo, callback){
+	console.log(idMemo);
   MongoClient.connect('mongodb://127.0.0.1:27017/memoSystem',function(err,connection){
 			if (err) {
 				console.log(err);
