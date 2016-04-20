@@ -303,6 +303,70 @@ function checkLogin(id, callback){
 	 });
 }
 
+/**
+ * Funcion delete all memos
+ */
+
+function deleteAllMemos(callback){
+ MongoClient.connect('mongodb://127.0.0.1:27017/memoSystem',function(err,connection){
+		 if (err) {
+			 console.log(err);
+			 callback(err);
+		 }
+
+		 var collection = connection.collection('memos');
+		 console.log('--Connected to database');
+		 collection.remove({},function(err,documents){
+				 connection.close();
+				 console.log(documents);
+				 if(documents > 0) {
+					 console.log("--Deleted all memos succesfully!");
+					 callback(null);
+				 } else{
+					 console.log("--Failed to delete the memos " + idMemo);
+					 console.log("--No affected rows");
+					 callback(documents);
+				 }
+		 });
+	 });
+}
+
+/**
+ * Funcion updateMemo. Se encarga de actualizar la info de una memo
+ */
+ function updateMemo(idMemo, memoName, memoDesc, memoDate, memoFile,
+             memoFileName, callback){
+   MongoClient.connect('mongodb://127.0.0.1:27017/memoSystem',function(err,connection){
+   		if (err) {
+   			console.log(err);
+   			callback(err);
+   		}
+
+ 			if(!memoFile || !memoFileName){
+				memoFile = undefined;
+				memoFileName = undefined;
+			}
+      var collection = connection.collection('memos');
+
+   		console.log('--Connected to database');
+
+ 			collection.update({'_id':ObjectId(idMemo)},
+         {$set:{'MemoName':memoName,'MemoDesc':memoDesc,'MemoDate':memoDate,
+         'MemoFile':memoFile,'MemoFileName':memoFileName}},
+         function(err,count){
+ 					connection.close();
+ 					if(!err && count!=0) {
+ 						 console.log("--Update complete!");
+ 						 callback("");
+ 					} else{
+ 						console.log("--Update failure");
+ 						console.log(err);
+ 						callback(err);
+ 					}
+ 			});
+ 		});
+ }
+
 exports.insertMemo = insertMemo;
 exports.insertMemoComplete = insertMemoComplete;
 exports.getAllMemo = getAllMemo;
@@ -311,3 +375,5 @@ exports.dropMemo = dropMemo;
 exports.blobMemo = blobMemo;
 exports.loginUser = loginUser;
 exports.checkLogin = checkLogin;
+exports.deleteAllMemos = deleteAllMemos;
+exports.updateMemo = updateMemo;
