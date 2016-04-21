@@ -1,0 +1,69 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphics}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[demo]{graphicx}
+\usepackage{enumitem}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{listingsutf8}
+\usepackage{framed}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{anysize}
+\usepackage{fancyhdr}
+\usepackage{eurosym}
+
+% para poner encabezado a la derecha
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{Sistemas y Tecnologías Web}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.35mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\begin{document}
+
+% % cambiar margenes
+\marginsize{3cm}{3cm}{2.5cm}{2.5cm} 
+
+\begin{flushright}
+	\textsc{\huge Práctica 5\\}
+	\textsc{\tiny " "\\}
+	\textsc{\large
+		Jaime Ruiz-Borau Vizárraga (546751)\\
+	}
+	\HRule \\
+\end{flushright}
+
+\section{Descripción del API desarrollada}
+\setcounter{page}{1}
+\subsection{Recursos identificados}
+\paragraph{}El API desarrollada se fundamenta en dos recursos básicos del sistema: las \textbf{memos} (notas) y los \textbf{usuarios} del sistema.
+\subsection{Operaciones implementadas sobre los recursos}
+\paragraph{}A continuación, se listan las operaciones implementadas sobre los recursos identificados y su comportamiento al ser invocadas:
+\paragraph{Memos}
+\begin{itemize}
+	\item \textbf{GET} del endpoint \textbf{/memo}: Devuelve todas las memos almacenadas en la base de datos con el formato de un \textit{identificador} y un \textit{enlace a la memo}, por cada una de las memos almacenadas.
+	\item \textbf{POST} del endpoint \textbf{/memo}:  
+	Almacena una nueva memo en la base de datos. Recibe los parámetros de la memo del \textit{body} de la petición.
+	\item \textbf{DELETE} del endpoint \textbf{/memo}: Elimina todas las memos almacenadas en la base de datos.
+	\item \textbf{GET} del endpoint \textbf{/memo/:id}: Devuelve toda la información de la memo referenciada por \textit{id}.
+	\item \textbf{PUT} del endpoint \textbf{/memo/:id}: Actualiza la información de la memo referenciada por \textit{id}.
+	\item \textbf{DELETE} del endpoint \textbf{/memo/:id}: Elimina la memo referenciada por \textit{id} de la base de datos.
+\end{itemize}
+
+\paragraph{Usuarios}
+\begin{itemize}
+	\item \textbf{GET} del endpoint \textbf{/user}: Devuelve todos los usuarios almacenados en la base de datos con el formato de un \textit{identificador} y un \textit{enlace al usuario}, por cada uno de los usuarios almacenados.
+	\item \textbf{POST} del endpoint \textbf{/user}:  
+	Almacena un nuevo usuario en la base de datos. Recibe los parámetros del usuario del \textit{body} de la petición.
+	\item \textbf{DELETE} del endpoint \textbf{/user}: Elimina todos los usuarios almacenados en la base de datos.
+	\item \textbf{GET} del endpoint \textbf{/user/:id}: Devuelve toda la información del usuario referenciada por \textit{id}.
+	\item \textbf{PUT} del endpoint \textbf{/user/:id}: Actualiza la información del usuario referenciada por \textit{id}.
+	\item \textbf{DELETE} del endpoint \textbf{/user/:id}: Elimina el usuario referenciado por \textit{id} de la base de datos.
+\end{itemize}
+
+\end{document}
