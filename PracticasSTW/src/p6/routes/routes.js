@@ -10,7 +10,7 @@ var appRouter = function(app){
       if(!err){
         var returned = [];
         for(i = 0; i < docs.length; i++){
-          returned.push({"MemoID":docs[i]._id, "href":"localhost:3000/memo/"+docs[i]._id});
+          returned.push({"MemoID":docs[i]._id, "MemoName" : docs[i].MemoName, "href":"localhost:3000/memo/"+docs[i]._id});
         }
         res.send({"memolist":returned});
       } else{
@@ -36,7 +36,17 @@ var appRouter = function(app){
       if(!fName || !file){
         database.insertMemo(name,desc,date,function(err){
           if(err === ""){
-            res.send({"error":"false", "message":"memo inserted"})
+            database.getAllMemo(function(err,docs){
+              if(!err){
+                var returned = [];
+                for(i = 0; i < docs.length; i++){
+                  returned.push({"MemoID":docs[i]._id, "MemoName" : docs[i].MemoName, "href":"localhost:3000/memo/"+docs[i]._id});
+                }
+                res.send({"error":"false", "message":"memo inserted","memolist":returned});
+              } else{
+                res.send({"error":"false", "message":"memo inserted"});
+              }
+            });
           } else{
             res.send({"error": "true", "message": "error inserting memo"});
           }
@@ -144,7 +154,17 @@ var appRouter = function(app){
         res.send({"error":true,"message":"couldn't retrieve the info"});
       }
       else{
-        res.send({"error":false,"message":"deleted successfully"});
+        database.getAllMemo(function(err,docs){
+          if(!err){
+            var returned = [];
+            for(i = 0; i < docs.length; i++){
+              returned.push({"MemoID":docs[i]._id, "MemoName" : docs[i].MemoName, "href":"localhost:3000/memo/"+docs[i]._id});
+            }
+            res.send({"error":false,"message":"deleted successfully","memolist":returned});
+          } else{
+            res.send({"error":false,"message":"deleted successfully"});
+          }
+        });
       }
     }); // Fin acceso a la bd
   });

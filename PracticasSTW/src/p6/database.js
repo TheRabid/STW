@@ -1,7 +1,7 @@
 var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
-var server = "mongodb://TestUser:testpassword1#@ds013310.mlab.com:13310/felinotweetsdb";
-//var server =
+//var server = "mongodb://TestUser:testpassword1#@ds013310.mlab.com:13310/felinotweetsdb";
+var server = 'mongodb://127.0.0.1:27017/memoSystem';
 
 /**
  * Database.js
