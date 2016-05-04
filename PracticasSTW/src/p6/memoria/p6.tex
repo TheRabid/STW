@@ -1,0 +1,56 @@
+\documentclass[a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphics}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[demo]{graphicx}
+\usepackage{enumitem}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{listingsutf8}
+\usepackage{framed}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{anysize}
+\usepackage{fancyhdr}
+\usepackage{eurosym}
+
+% para poner encabezado a la derecha
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{Sistemas y Tecnologías Web}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.35mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\begin{document}
+
+% % cambiar margenes
+\marginsize{3cm}{3cm}{2.5cm}{2.5cm} 
+
+\begin{flushright}
+	\textsc{\huge Práctica 6\\}
+	\textsc{\tiny " "\\}
+	\textsc{\large
+		Jaime Ruiz-Borau Vizárraga (546751)\\
+	}
+	\HRule \\
+\end{flushright}
+
+\section{Descripción del frontend desarrollado}
+\setcounter{page}{1}
+\subsection{Visión general de la página principal}
+\paragraph{}La página principal del frontend contiene los siguientes elementos:
+\begin{itemize}
+	\item \textbf{Un contador} de las memos totales almacenadas en la base de datos.
+	\item \textbf{Una lista} de todas las memos almacenadas en la base de datos.
+	\item \textbf{Un formulario} que permite añadir nuevas memos a la base de datos.
+\end{itemize}
+\subsection{Contador de memos}
+\paragraph{}Lleva la cuenta de las memos almacenadas en la base de datos. Se actualiza con \textbf{cada refresco} de la página web o \textbf{eliminando memos} desde esta misma página principal o \textbf{añadiendo nuevas memos} con el formulario de la parte inferior.
+\subsection{Lista de memos}
+\paragraph{}Muestra las memos almacenadas en la base de datos junto a una casilla marcable. Si el usuario marca la casilla se borra la memo de la base de datos y se actualizan tanto la lista como el contador de memos de la página.
+\subsection{Formulario para añadir memo}
+\paragraph{}Dispone de tres huecos para introducir la información de la nueva memo (la mínima información para introducir una nueva memo) y al pulsar en el botón de Add se actualizan automáticamente tanto el contador de memos como la lista de memos.
+\end{document}
